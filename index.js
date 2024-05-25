@@ -4,6 +4,11 @@
 
 const log = (...args) => args.forEach(arg => console.log(arg))
 
+/**
+ * erroring
+ */
+
+const err = (...args) => args.forEach(arg => console.error(arg))
 
 /**
  * Query selection
@@ -12,7 +17,6 @@ const log = (...args) => args.forEach(arg => console.log(arg))
 const qs = selector => document.querySelector(selector)
 
 const qsa = selector => document.querySelectorAll(selector)
-
 
 /**
  * Element query selection 
@@ -32,13 +36,11 @@ Object.assign(HTMLElement.prototype, {
   }
 })
 
-
 /**
  * Create element 
  */
 
 const create = tag => document.createElement(tag)
-
 
 /**
  * Creator batch
@@ -53,39 +55,30 @@ const creator = args => {
   if (args.html) el.innerHTML = args.html
   if (args.value) el.value = args.value
 
-  if (args.style)
-    Object.assign(el.style, args.style)
+  if (args.style) Object.assign(el.style, args.style)
+  if (args.childs) el.appendAll(...args.childs)
+  if (args.onClick) onClick(el, args.onClick)
 
   if (args.attrs) Object
     .entries(args.attrs)
     .forEach(([name, value]) => el.setAttribute(name, value))
 
-  if (args.childs)
-    el.appendAll(...args.childs)
-
-  if (args.onClick) onClick(el, args.onClick)
-
   return el
 }
-
 
 /** 
  * Add Event listener on html elements 
  */
 
-const on = (evt, el, behavior) =>
-  el.addEventListener(evt, behavior)
+const on = (evt, el, behavior) => el.addEventListener(evt, behavior)
 
-const onClick = (el, behavior) =>
-  on('click', el, behavior)
-
+const onClick = (el, behavior) => on('click', el, behavior)
 
 /**
  * Join strings
  */
 
 const join = (...strings) => strings.join('')
-
 
 /**
  * Generate random integers
@@ -97,13 +90,12 @@ const rnd = (max = 1000) => parseInt(Math.random() * max)
  * Generate random Hex colors
  */
 
-const rndHexColor = (n = 0xffffff) => "#" + rnd(n).toString(16).padStart(6, 0)
-
+const rndHexColor = (n = 0xffffff) => rnd(n).toString(16).padStart(6, 0)
 
 /**
  * Set cookie
  *
- * @param htl hours to live
+ * @param htl: hours to live
  */
 
 const setCookie = (name, value, htl) => {
@@ -139,5 +131,4 @@ const getPrototypeFunctions = prototype => Object
   .filter(prop => typeof prototype[prop] === 'function')
 
 const getObjectFunctions = object =>
-  getPrototypeFunctions(
-    Object.getPrototypeOf(object))
+  getPrototypeFunctions(Object.getPrototypeOf(object))
