@@ -1,8 +1,8 @@
-# Arkit.js
+# arkit.js
 
-Arkit is a lightweight javascript library contains all the frequently used code snippets and hooks with smaller, meaningful names and powerful usage.
+A lightweight javascript library contains all the frequently used code snippets and hooks with smaller, meaningful names and powerful usage.
 
-## Usage
+## Too easy to use
 
 ### Logging
 
@@ -10,6 +10,12 @@ Take one or more parameters and log them to console
 
 ```js
 const log = (...args) => args.forEach((arg) => console.log(arg));
+```
+
+Errors
+
+```js
+const err = (...args) => args.forEach((arg) => console.error(arg));
 ```
 
 ### Elements Selection
@@ -23,7 +29,7 @@ const qs = (selector) => document.querySelector(selector);
 Select single element using `querySelectorAll()` function
 
 ```js
-const qs = (selector) => document.querySelector(selector);
+const qsa = (selector) => document.querySelectorAll(selector);
 ```
 
 ### Elements Creation
@@ -47,15 +53,13 @@ const creator = (args) => {
   if (args.value) el.value = args.value;
 
   if (args.style) Object.assign(el.style, args.style);
+  if (args.childs) el.appendAll(...args.childs);
+  if (args.onClick) onClick(el, args.onClick);
 
   if (args.attrs)
     Object.entries(args.attrs).forEach(([name, value]) =>
       el.setAttribute(name, value)
     );
-
-  if (args.childs) el.appendAll(...args.childs);
-
-  if (args.onClick) onClick(el, args.onClick);
 
   return el;
 };
@@ -98,6 +102,8 @@ const join = (...strings) => strings.join("");
 ## Example
 
 ```js
+qs("body").style.background = `#${rndHexColor()}`;
+
 let h1 = creator({
   tag: "h1",
   text: document.title,
