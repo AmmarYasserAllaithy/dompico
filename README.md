@@ -1,6 +1,6 @@
-# arkit.js
+# Dompico
 
-A lightweight javascript library contains all the frequently used code snippets and hooks with smaller, meaningful names and powerful usage.
+![A lightweight JavaScript utility library that simplifies everyday tasks like DOM manipulation, event handling, and logging](dompico-shot.png)
 
 ## Too easy to use
 
@@ -26,7 +26,7 @@ Select single element using `querySelector()` function
 const qs = (selector) => document.querySelector(selector);
 ```
 
-Select single element using `querySelectorAll()` function
+Select multiple elements using `querySelectorAll()` function
 
 ```js
 const qsa = (selector) => document.querySelectorAll(selector);
@@ -46,20 +46,19 @@ Batch creating element by passing its all props as args
 const creator = (args) => {
   let el = create(args.tag);
 
-  if (args.id) el.id = args.id;
-  if (args.cls) el.className = args.cls;
-  if (args.text) el.innerText = args.text;
-  if (args.html) el.innerHTML = args.html;
+  if (args.id   ) el.id = args.id;
+  if (args.cls  ) el.className = args.cls;
+  if (args.text ) el.innerText = args.text;
+  if (args.html ) el.innerHTML = args.html;
   if (args.value) el.value = args.value;
 
-  if (args.style) Object.assign(el.style, args.style);
-  if (args.childs) el.appendAll(...args.childs);
+  if (args.style  ) Object.assign(el.style, args.style);
+  if (args.childs ) el.appendAll(...args.childs);
   if (args.onClick) onClick(el, args.onClick);
 
   if (args.attrs)
-    Object.entries(args.attrs).forEach(([name, value]) =>
-      el.setAttribute(name, value)
-    );
+    Object.entries(args.attrs)
+      .forEach(([name, value]) => el.setAttribute(name, value))
 
   return el;
 };
@@ -101,75 +100,119 @@ const join = (...strings) => strings.join("");
 
 ## Example
 
+HTML
+
+```html
+<body>
+  <section></section>
+</body>
+```
+
+Javascript
+
 ```js
-qs("body").style.background = `#${rndHexColor()}`;
-
-let h1 = creator({
-  tag: "h1",
-  text: document.title,
+const h1 = creator({
+  tag: 'h2',
+  text: `{${document.title}}`,
   style: {
-    margin: "1rem",
-    padding: "1rem",
-    borderRadius: "10pt",
-    color: "#FFEE37",
-    background: "#6461FF",
-    letterSpacing: ".05rem",
-    textAlign: "center",
-    fontFamily: "serif",
+    letterSpacing: '1px',
+    fontFamily: 'JetBrains Mono, ubuntu mono',
   },
-});
+})
 
-let nav = creator({
-  tag: "nav",
+const ancStyle = {
+  textDecoration: 'none',
+  color: 'inherit',
+}
+
+const nav = creator({
+  tag: 'nav',
   style: {
-    display: "flex",
-    placeContent: "space-around",
-    margin: "1rem auto",
+    display: 'flex',
+    placeContent: 'space-around',
+    gap: '1rem',
   },
   childs: [
     creator({
-      tag: "a",
-      text: "About",
+      tag: 'a',
+      text: 'About',
       attrs: {
-        href: "#about",
+        href: '#about',
       },
-      style: {
-        textDecoration: "none",
-      },
+      style: ancStyle,
     }),
     creator({
-      tag: "a",
-      text: "Docs",
+      tag: 'a',
+      text: 'Docs',
       attrs: {
-        href: "#docs",
+        href: '#docs',
       },
-      style: {
-        textDecoration: "none",
-      },
+      style: ancStyle,
     }),
     creator({
-      tag: "a",
-      text: "FAQs",
+      tag: 'a',
+      text: 'FAQs',
       attrs: {
-        href: "#faqs",
+        href: '#faqs',
       },
-      style: {
-        textDecoration: "none",
-      },
+      style: ancStyle,
     }),
   ],
-});
+})
 
-let article = creator({
-  tag: "article",
-  html: "<h2>A Javascript 3rd party library that provides ease of development by containing all the frequently used functions and hooks with smaller but meaningful names and powerful usage.</h2>",
+const header = creator({
+  tag: 'header',
   style: {
-    textAlign: "center",
-    padding: "1rem",
+    background: '#1f75bf',
+    color: '#f0f1f2',
+    display: 'flex',
+    placeContent: 'space-between',
+    placeItems: 'center',
+    padding: '1rem',
   },
-});
+  childs: [h1, nav],
+})
 
-document.body.appendAll(h1, nav, article);
+const article = creator({
+  tag: 'article',
+  html: `
+      <h3 style='margin: 2rem auto; letter-spacing: 1px'>
+        A lightweight JavaScript utility library that simplifies everyday tasks like 
+        DOM manipulation, event handling, and logging.
+      </h3>
+      <p>It offers concise, ready-to-use helpers to reduce boilerplate and speed up development.</p>
+      <p>Perfect for developers who want a minimal, efficient toolkit without heavy dependencies.</p>
+  `,
+  style: {
+    textAlign: 'center',
+    padding: '1rem',
+  },
+})
+
+const footer = creator({
+  tag: 'footer',
+  html: 'Developed with &hearts; by Ammar Yasser Allaithy',
+  style: {
+    opacity: 0.5,
+    textAlign: 'center',
+    fontSize: '14px',
+    padding: '1rem',
+  },
+})
+
+
+const container = qs('section')
+
+container.appendAll(header, article, footer)
+
+Object.assign(container.style, {
+  background: '#f2f3f5',
+  'font-family': 'Poppins',
+  'max-width': '768px',
+  margin: '1rem auto',
+})
 ```
 
-![index.html](preview.png)
+Preview
+
+![Preview](dompico-shot.png)
