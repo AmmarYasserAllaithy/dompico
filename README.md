@@ -9,13 +9,13 @@
 Take one or more parameters and log them to console
 
 ```js
-const log = (...args) => args.forEach((arg) => console.log(arg));
+export const log = (...args) => args.forEach((arg) => console.log(arg));
 ```
 
 Errors
 
 ```js
-const err = (...args) => args.forEach((arg) => console.error(arg));
+export const err = (...args) => args.forEach((arg) => console.error(arg));
 ```
 
 ### Elements Selection
@@ -23,13 +23,13 @@ const err = (...args) => args.forEach((arg) => console.error(arg));
 Select single element using `querySelector()` function
 
 ```js
-const qs = (selector) => document.querySelector(selector);
+export const qs = (selector) => document.querySelector(selector);
 ```
 
 Select multiple elements using `querySelectorAll()` function
 
 ```js
-const qsa = (selector) => document.querySelectorAll(selector);
+export const qsa = (selector) => document.querySelectorAll(selector);
 ```
 
 ### Elements Creation
@@ -37,13 +37,13 @@ const qsa = (selector) => document.querySelectorAll(selector);
 Create single element with the tag name
 
 ```js
-const create = (tag) => document.createElement(tag);
+export const create = (tag) => document.createElement(tag);
 ```
 
 Batch creating element by passing its all props as args
 
 ```js
-const creator = (args) => {
+export const creator = (args) => {
   let el = create(args.tag);
 
   if (args.id   ) el.id = args.id;
@@ -79,13 +79,13 @@ Append one or more child to an [HTMLElement]. It's a flexible version of `append
 General registering listener
 
 ```js
-const on = (evt, el, behavior) => el.addEventListener(evt, behavior);
+export const on = (evt, el, behavior) => el.addEventListener(evt, behavior);
 ```
 
 onClick listener
 
 ```js
-const onClick = (el, behavior) => on("click", el, behavior);
+export const onClick = (el, behavior) => on("click", el, behavior);
 ```
 
 ### Strings joining
@@ -93,7 +93,7 @@ const onClick = (el, behavior) => on("click", el, behavior);
 Combine multiple strings in one string
 
 ```js
-const join = (...strings) => strings.join("");
+export const join = (...strings) => strings.join("");
 ```
 
 ...etc

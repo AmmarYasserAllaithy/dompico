@@ -2,21 +2,21 @@
  * Logging
  */
 
-const log = (...args) => args.forEach(arg => console.log(arg))
+export const log = (...args) => args.forEach(arg => console.log(arg))
 
 /**
  * erroring
  */
 
-const err = (...args) => args.forEach(arg => console.error(arg))
+export const err = (...args) => args.forEach(arg => console.error(arg))
 
 /**
  * Query selection
  */
 
-const qs = selector => document.querySelector(selector)
+export const qs = selector => document.querySelector(selector)
 
-const qsa = selector => document.querySelectorAll(selector)
+export const qsa = selector => document.querySelectorAll(selector)
 
 /**
  * Element query selection 
@@ -40,13 +40,13 @@ Object.assign(HTMLElement.prototype, {
  * Create element 
  */
 
-const create = tag => document.createElement(tag)
+export const create = tag => document.createElement(tag)
 
 /**
  * Creator batch
  */
 
-const creator = args => {
+export const creator = args => {
   let el = create(args.tag)
 
   if (args.id) el.id = args.id
@@ -70,27 +70,27 @@ const creator = args => {
  * Add Event listener on html elements 
  */
 
-const on = (evt, el, behavior) => el.addEventListener(evt, behavior)
+export const on = (evt, el, behavior) => el.addEventListener(evt, behavior)
 
-const onClick = (el, behavior) => on('click', el, behavior)
+export const onClick = (el, behavior) => on('click', el, behavior)
 
 /**
  * Join strings
  */
 
-const join = (...strings) => strings.join('')
+export const join = (...strings) => strings.join('')
 
 /**
  * Generate random integers
  */
 
-const rnd = (max = 1000) => parseInt(Math.random() * max)
+export const rnd = (max = 1000) => parseInt(Math.random() * max)
 
 /**
  * Generate random Hex colors
  */
 
-const rndHexColor = (n = 0xffffff) => rnd(n).toString(16).padStart(6, 0)
+export const rndHexColor = (n = 0xffffff) => rnd(n).toString(16).padStart(6, 0)
 
 /**
  * Set cookie
@@ -98,7 +98,7 @@ const rndHexColor = (n = 0xffffff) => rnd(n).toString(16).padStart(6, 0)
  * @param htl: hours to live
  */
 
-const setCookie = (name, value, htl) => {
+export const setCookie = (name, value, htl) => {
   const millisToLive = Date.now() + htl * 60 * 60 * 1000
   const exDate = new Date(millisToLive).toUTCString()
 
@@ -109,7 +109,7 @@ const setCookie = (name, value, htl) => {
  * Get cookie
  */
 
-const getCookie = name => {
+export const getCookie = name => {
   let cookies = document.cookie.split(";")
 
   for (let cookie of cookies) {
@@ -126,9 +126,9 @@ const getCookie = name => {
  * Object methods
  */
 
-const getPrototypeFunctions = prototype => Object
+export const getPrototypeFunctions = prototype => Object
   .getOwnPropertyNames(prototype)
   .filter(prop => typeof prototype[prop] === 'function')
 
-const getObjectFunctions = object =>
+export const getObjectFunctions = object =>
   getPrototypeFunctions(Object.getPrototypeOf(object))
